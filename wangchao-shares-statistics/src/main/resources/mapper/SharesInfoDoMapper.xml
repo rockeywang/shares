@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangchao.shares.dao.SharesInfoDoMapper">
+
+
+    <select id="getNewLastTime" resultType="java.lang.String">
+        select count_data
+        from shares_info
+        order by count_data desc
+        limit 1
+    </select>
+
+
+    <select id="findSharesInfoByConList" parameterType="com.wangchao.shares.vo.SharesInfoReq"
+            resultType="com.wangchao.shares.vo.SharesInfoResp">
+        select
+        share_code shareCode,
+        share_name shareName,
+        new_price newPrice,
+        amount_increase amountIncrease,
+        zhuli_liuru_jinge zhuliLiuruJinge,
+        zhuli_liuru_baifenbi zhuliLiuruBaifenbi,
+        zhuli_bigdan_liuru_jinge zhuliBigdanLiuruJinge,
+        zhuli_bigdan_liuru_zhanbi zhuliBigdanLiuruZhanbi,
+        zhuliliuru_jinge zhuliliuruJinge,
+        zhuliliuru_zhanbi zhuliliuruZhanbi,
+        zhuli_middle_liuru_jinge zhuliMiddleLiuruJinge,
+        zhuli_middle_liuru_zhanbi zhuliMiddleLiuruZhanbi,
+        zhuli_small_liuru_jinge zhuliSmallLiuruJinge,
+        zhuli_small_liuru_zhanbi zhuliSmallLiuruZhanbi
+        FROM shares_info
+        <where>
+            count_data=#{countData}
+            <if test="shareCode!=null and shareCode!=''">
+                and share_code=#{shareCode}
+            </if>
+
+            <if test="type!=null and type!=''">
+                and share_code LIKE CONCAT(CONCAT(#{type},'%'))
+            </if>
+
+            <if test="shareName!=null and shareName!=''">
+                and share_name LIKE CONCAT(CONCAT('%',#{shareName},'%'))
+            </if>
+
+            <if test="minPrice!=null or maxPrice!=null">
+                and new_price BETWEEN #{minPrice} and #{maxPrice}
+            </if>
+
+            <if test="minAmountIncrease!=null or maxAmountIncrease!=null">
+                and amount_increase BETWEEN #{minAmountIncrease} and #{maxAmountIncrease}
+            </if>
+            order by new_price desc
+
+        </where>
+
+    </select>
+
+</mapper>
