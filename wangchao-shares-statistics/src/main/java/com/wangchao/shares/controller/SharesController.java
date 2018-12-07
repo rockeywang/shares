@@ -52,11 +52,27 @@
              logger.info(funName + ",返回结果：" + JSON.toJSONString(pageList));
              resp = BaseResp.buildSuccessResp(BaseResp.class);
              resp.setData(pageList);
-         }  catch (Exception t) {
+         } catch (Exception t) {
              logger.error("{},系统异常,:{}", funName, t);
              resp = BaseResp.buildFailResp(t, funName, BaseResp.class);
          }
          return resp;
      }
+
+
+     @PostMapping(value = "triggerFindSharesInfoJob")
+     @ApiOperation(httpMethod = "POST", value = "[pc端]-[触发爬虫数据定时任务]", notes = "触发爬虫数据定时任务")
+     public BaseResp triggerFindSharesInfoJob() {
+         BaseResp resp = null;
+         String funName = "pc端->触发爬虫数据定时任务";
+         try {
+             getSharesInfoService.getShareInfo();
+         } catch (Exception t) {
+             logger.error("{},系统异常,:{}", funName, t);
+             resp = BaseResp.buildFailResp(t, funName, BaseResp.class);
+         }
+         return resp;
+     }
+
 
  }

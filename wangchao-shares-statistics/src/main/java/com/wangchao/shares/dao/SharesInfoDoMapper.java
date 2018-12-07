@@ -8,7 +8,6 @@
  package com.wangchao.shares.dao;
 
  import com.github.pagehelper.Page;
- import com.github.pagehelper.PageInfo;
  import com.wangchao.shares.base.BaseMapper;
  import com.wangchao.shares.dataobject.SharesInfoDo;
  import com.wangchao.shares.vo.SharesInfoReq;
