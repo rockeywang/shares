@@ -56,4 +56,28 @@
 
     </select>
 
+    <select id="countSumByPriceAndType" resultType="com.wangchao.shares.vo.SumSharePriceDateVo" parameterType="com.wangchao.shares.vo.SharesInfoReq">
+        select count(*)  shareCount,
+        count_data countData
+        from shares_info
+        <where>
+            count_data=#{countData}
+            <if test="minPrice!=null or maxPrice!=null">
+                and new_price BETWEEN #{minPrice} and #{maxPrice}
+            </if>
+            <if test="type!=null and type!=''">
+                and share_code LIKE CONCAT(CONCAT(#{type},'%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="countSumShaInfos" resultType="java.lang.Integer" >
+        select count(*) from shares_info
+        where  count_data=#{dateTime}
+    </select>
+
+    <select id="findShareCodes" resultType="java.lang.String">
+        select DISTINCT  share_code from  shares_info
+     </select>
+
 </mapper>

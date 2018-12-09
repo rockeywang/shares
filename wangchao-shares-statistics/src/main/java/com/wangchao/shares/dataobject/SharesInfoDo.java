@@ -7,7 +7,9 @@
   */
  package com.wangchao.shares.dataobject;
 
- import com.fasterxml.jackson.annotation.JsonFormat;
+
+ import lombok.Getter;
+ import lombok.Setter;
 
  import javax.persistence.GeneratedValue;
  import javax.persistence.GenerationType;
@@ -68,11 +70,30 @@
      private BigDecimal zhuliSmallLiuruZhanbi;
 
 
-     @JsonFormat(pattern = "yyyy-MM-dd")
      private Date countData;
 
-     @JsonFormat(pattern = "yyyy-MM-dd")
      private Date createTime;
+
+     private BigDecimal huanShou;
+
+     private Long zongShou;
+
+     private Long dealMoney;
+
+
+     private BigDecimal zhenFu;
+
+     private BigDecimal lastDayPrice;
+
+     private BigDecimal startPrice;
+
+     private BigDecimal maxPrice;
+
+     private BigDecimal minPrice;
+
+     private BigDecimal liangBi;
+
+     private BigDecimal zhangDie;
 
      public Long getId() {
          return id;
@@ -208,5 +229,85 @@
 
      public void setCreateTime(Date createTime) {
          this.createTime = createTime;
+     }
+
+     public BigDecimal getHuanShou() {
+         return huanShou;
+     }
+
+     public void setHuanShou(BigDecimal huanShou) {
+         this.huanShou = huanShou;
+     }
+
+     public Long getZongShou() {
+         return zongShou;
+     }
+
+     public void setZongShou(Long zongShou) {
+         this.zongShou = zongShou;
+     }
+
+     public Long getDealMoney() {
+         return dealMoney;
+     }
+
+     public void setDealMoney(Long dealMoney) {
+         this.dealMoney = dealMoney;
+     }
+
+     public BigDecimal getZhenFu() {
+         return zhenFu;
+     }
+
+     public void setZhenFu(BigDecimal zhenFu) {
+         this.zhenFu = zhenFu;
+     }
+
+     public BigDecimal getLastDayPrice() {
+         return lastDayPrice;
+     }
+
+     public void setLastDayPrice(BigDecimal lastDayPrice) {
+         this.lastDayPrice = lastDayPrice;
+     }
+
+     public BigDecimal getStartPrice() {
+         return startPrice;
+     }
+
+     public void setStartPrice(BigDecimal startPrice) {
+         this.startPrice = startPrice;
+     }
+
+     public BigDecimal getMaxPrice() {
+         return maxPrice;
+     }
+
+     public void setMaxPrice(BigDecimal maxPrice) {
+         this.maxPrice = maxPrice;
+     }
+
+     public BigDecimal getMinPrice() {
+         return minPrice;
+     }
+
+     public void setMinPrice(BigDecimal minPrice) {
+         this.minPrice = minPrice;
+     }
+
+     public BigDecimal getLiangBi() {
+         return liangBi;
+     }
+
+     public void setLiangBi(BigDecimal liangBi) {
+         this.liangBi = liangBi;
+     }
+
+     public BigDecimal getZhangDie() {
+         return zhangDie;
+     }
+
+     public void setZhangDie(BigDecimal zhangDie) {
+         this.zhangDie = zhangDie;
      }
  }

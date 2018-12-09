@@ -59,18 +59,18 @@
          Calendar calendar = Calendar.getInstance();
          calendar.setTime(new Date());
 
-         if(checkHoliday(calendar)){
-             for(int i=1; i < 9;i++) {
+         if (checkHoliday(calendar)) {
+             for (int i = 1; i < 9; i++) {
                  calendar.add(Calendar.DAY_OF_MONTH, -i);
-                 if(checkHoliday(calendar)){
+                 if (checkHoliday(calendar)) {
                      continue;
                  }
              }
          }
 
-         String date1=DateUtil.format(calendar.getTime(),DateUtil.webFormat);
+         String date1 = DateUtil.format(calendar.getTime(), DateUtil.webFormat);
 
-         if(StringUtils.isNotBlank(data)&&date1.equals(data)){
+         if (StringUtils.isNotBlank(data) && date1.equals(data)) {
              return;
          }
 
@@ -181,6 +181,34 @@
 
              sharesInfoDo.setCountData(time);
              sharesInfoDo.setCreateTime(new Date());
+
+             String code1 = shareCode.substring(0, 2);
+             String response3 = null;
+             if ("60".equals(code1)) {
+                 String url3 = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&sty=DCARQRQB&st=z&sr=&p=&ps=&token=1942f5da9b46b069953c873404aad4b5&cmd=" + shareCode + "1&cb=jsonpHqDatakhFcGKkB&_=" + new Date();
+                 String respons7 = HTTPUtils.getRawHtml(url3);
+                 String html3 = respons7.toString();
+                 String respons2 = html3.replace("jsonpHqDatakhFcGKkB", "");
+                 response3 = respons2.replace("([", "").replace("])", "").replace("\"", "");
+             } else {
+                 String url2 = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&sty=DCARQRQB&st=z&sr=&p=&ps=&token=1942f5da9b46b069953c873404aad4b5&cmd=" + shareCode + "2&cb=jsonpHqDataOtImUcey&_=" + new Date();
+                 String respons6 = HTTPUtils.getRawHtml(url2);
+                 String html4 = respons6.toString();
+                 String respons9 = html4.replace("jsonpHqDataOtImUcey", "");
+                 response3 = respons9.replace("([", "").replace("])", "").replace("\"", "");
+             }
+             String[] response4 = response3.split(",");
+             logger.warn(shareCode+response3);
+             sharesInfoDo.setZhangDie(new BigDecimal(response4[4]));
+             sharesInfoDo.setZongShou(Long.valueOf(response4[6]));
+             sharesInfoDo.setDealMoney(Long.valueOf(response4[7]));
+             sharesInfoDo.setZhenFu(new BigDecimal(response4[8]));
+             sharesInfoDo.setLastDayPrice(new BigDecimal(response4[9]));
+             sharesInfoDo.setStartPrice(new BigDecimal(response4[10]));
+             sharesInfoDo.setMaxPrice(new BigDecimal(response4[11]));
+             sharesInfoDo.setMinPrice(new BigDecimal(response4[12]));
+             sharesInfoDo.setHuanShou(new BigDecimal(response4[13]));
+             sharesInfoDo.setLiangBi(new BigDecimal(response4[14]));
              sharesInfoDos.add(sharesInfoDo);
          }
 
@@ -214,18 +242,18 @@
 
          Page<SharesInfoResp> shopConfigListRespPageInfo = sharesInfoDoMapper.findSharesInfoByConList(req);
 
-         PageInfo<SharesInfoResp> sharesInfoRespPageInfos=new PageInfo<>();
+         PageInfo<SharesInfoResp> sharesInfoRespPageInfos = new PageInfo<>();
          sharesInfoRespPageInfos.setPageSize(req.getPageSize());
          sharesInfoRespPageInfos.setPageNum(req.getPageIndex());
-         if(CollectionUtils.isEmpty(shopConfigListRespPageInfo.getResult())){
+         if (CollectionUtils.isEmpty(shopConfigListRespPageInfo.getResult())) {
              sharesInfoRespPageInfos.setTotal(0);
              sharesInfoRespPageInfos.setList(null);
-         }else{
+         } else {
              sharesInfoRespPageInfos.setList(shopConfigListRespPageInfo.getResult());
              sharesInfoRespPageInfos.setTotal(shopConfigListRespPageInfo.getTotal());
          }
 
-         return  sharesInfoRespPageInfos;
+         return sharesInfoRespPageInfos;
 
      }
  }

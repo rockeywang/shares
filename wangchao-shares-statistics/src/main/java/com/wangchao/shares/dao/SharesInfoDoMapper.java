@@ -12,6 +12,10 @@
  import com.wangchao.shares.dataobject.SharesInfoDo;
  import com.wangchao.shares.vo.SharesInfoReq;
  import com.wangchao.shares.vo.SharesInfoResp;
+ import com.wangchao.shares.vo.SumSharePriceDateVo;
+ import org.apache.ibatis.annotations.Param;
+
+ import java.util.List;
 
 
  /**
@@ -25,4 +29,12 @@
 
 
      Page<SharesInfoResp> findSharesInfoByConList(SharesInfoReq req);
+
+
+     List<SumSharePriceDateVo> countSumByPriceAndType(SharesInfoReq req);
+
+     int countSumShaInfos(@Param("dateTime") String dateTime);
+
+
+     List<String> findShareCodes();
  }
