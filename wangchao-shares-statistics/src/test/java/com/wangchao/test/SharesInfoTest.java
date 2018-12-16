@@ -8,6 +8,7 @@
  package com.wangchao.test;
 
  import com.alibaba.fastjson.JSONObject;
+ import com.wangchao.shares.service.GetSharesHolderService;
  import com.wangchao.shares.service.GetSharesInfoService;
  import com.wangchao.shares.service.GetSharesPriceCountService;
  import com.wangchao.shares.util.HTTPUtils;
@@ -35,34 +36,42 @@
      @Autowired
      private RestTemplate restTemplate;
 
-     //@Test
-     public void testShareInfoTest() throws Exception{
+     @Autowired
+     private GetSharesHolderService sharesHolderService;
+
+    // @Test
+     public void testShareInfoTest() throws Exception {
 
          getSharesInfoService.getShareInfo();
 
      }
 
 
-    // @Test
-     public void testSumPriceSection() throws Exception{
+     // @Test
+     public void testSumPriceSection() throws Exception {
          getSharesPriceCountService.sumPriceSection();
      }
 
-     @Test
-     public void testUrl() throws  Exception{
+     //@Test
+     public void testUrl() throws Exception {
          String url = "http://data.eastmoney.com/DataCenter_V3/gdfx/stockholder.ashx?code=600061&date=2018-09-30&type=Lt";
-        // String response = HTTPUtils.getRawHtml(url);
-         String response=restTemplate.getForObject(url,String.class);
-         JSONObject jsonObject=JSONObject.parseObject(response);
-         String message=jsonObject.get("data").toString();
+         // String response = HTTPUtils.getRawHtml(url);
+         String response = restTemplate.getForObject(url, String.class);
+         JSONObject jsonObject = JSONObject.parseObject(response);
+         String message = jsonObject.get("data").toString();
 
          List<StockholderVo> obj = JSONObject.parseArray(message, StockholderVo.class);
 
-         for(StockholderVo stockholderVo:obj){
+         for (StockholderVo stockholderVo : obj) {
              stockholderVo.getSHAREHDCODE();
          }
 
 
-
      }
-             }
+
+
+    @Test
+     public void testGetSharesHolder() throws Exception{
+         sharesHolderService.getSharesHolder();
+     }
+ }

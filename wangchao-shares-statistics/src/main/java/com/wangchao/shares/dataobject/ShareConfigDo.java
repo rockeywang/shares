@@ -13,9 +13,9 @@ public class ShareConfigDo  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String key;
+    private String ConfigKey;
 
-    private String value;
+    private String ConfigValue;
 
     private Date createTime;
 
@@ -29,20 +29,20 @@ public class ShareConfigDo  {
         this.id = id;
     }
 
-    public String getKey() {
-        return key;
+    public String getConfigKey() {
+        return ConfigKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setConfigKey(String configKey) {
+        ConfigKey = configKey;
     }
 
-    public String getValue() {
-        return value;
+    public String getConfigValue() {
+        return ConfigValue;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setConfigValue(String configValue) {
+        ConfigValue = configValue;
     }
 
     public Date getCreateTime() {

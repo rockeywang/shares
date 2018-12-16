@@ -54,31 +54,33 @@
      @Transactional
      public void getShareInfo() throws Exception {
 
-         String data = sharesInfoDoMapper.getNewLastTime();
+//         String data = sharesInfoDoMapper.getNewLastTime();
+//
+//         Calendar calendar = Calendar.getInstance();
+//         calendar.setTime(new Date());
+//
+//         if (checkHoliday(calendar)) {
+//             for (int i = 1; i < 9; i++) {
+//                 calendar.add(Calendar.DAY_OF_MONTH, -i);
+//                 if (checkHoliday(calendar)) {
+//                     continue;
+//                 }
+//             }
+//         }
+//
+//         String date1 = DateUtil.format(calendar.getTime(), DateUtil.webFormat);
+//
+//         if (StringUtils.isNotBlank(data) && date1.equals(data)) {
+//             return;
+//         }
+         String data = DateUtil.format(new Date(),DateUtil.webFormat);
 
-         Calendar calendar = Calendar.getInstance();
-         calendar.setTime(new Date());
-
-         if (checkHoliday(calendar)) {
-             for (int i = 1; i < 9; i++) {
-                 calendar.add(Calendar.DAY_OF_MONTH, -i);
-                 if (checkHoliday(calendar)) {
-                     continue;
-                 }
-             }
-         }
-
-         String date1 = DateUtil.format(calendar.getTime(), DateUtil.webFormat);
-
-         if (StringUtils.isNotBlank(data) && date1.equals(data)) {
-             return;
-         }
-
-
-         String url = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=ct&st=(BalFlowMain)&sr=-1&p=1&ps=5000&js=var%20fCYsprcU={pages:(pc),date:%222018-11-30%22,data:[(x)]}&token=894050c76af8597a853f5b408b759f5d&cmd=C._AB&sty=DCFFITA&rt=51460099";
+         String url = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=ct&st=(BalFlowMain)&sr=-1&p=1&ps=5000&js=var%20fCYsprcU={pages:(pc),date:%22"+data+"%22,data:[(x)]}&token=894050c76af8597a853f5b408b759f5d&cmd=C._AB&sty=DCFFITA&rt=51460099";
          String response = HTTPUtils.getRawHtml(url);
+        // String html=restTemplate.getForEntity(url,String.class);
+
          String html = response.toString();
-         String jsonarra = html.split("data:")[1].split(",pages")[0];
+         String jsonarra=html.split("data:")[1].split(",pages")[0];
          String stocks[] = jsonarra.split("\",");
          List<String> stocklist = new ArrayList<String>();
          for (int i = 0; i < stocks.length; i++) {
@@ -186,15 +188,17 @@
              String response3 = null;
              if ("60".equals(code1)) {
                  String url3 = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&sty=DCARQRQB&st=z&sr=&p=&ps=&token=1942f5da9b46b069953c873404aad4b5&cmd=" + shareCode + "1&cb=jsonpHqDatakhFcGKkB&_=" + new Date();
-                 String respons7 = HTTPUtils.getRawHtml(url3);
-                 String html3 = respons7.toString();
+                 //String respons7 = HTTPUtils.getRawHtml(url3);
+                 String html3=restTemplate.getForObject(url3,String.class);
+                 //String html3 = respons7.toString();
                  String respons2 = html3.replace("jsonpHqDatakhFcGKkB", "");
                  response3 = respons2.replace("([", "").replace("])", "").replace("\"", "");
              } else {
                  String url2 = "http://nufm.dfcfw.com/EM_Finance2014NumericApplication/JS.aspx?type=CT&sty=DCARQRQB&st=z&sr=&p=&ps=&token=1942f5da9b46b069953c873404aad4b5&cmd=" + shareCode + "2&cb=jsonpHqDataOtImUcey&_=" + new Date();
-                 String respons6 = HTTPUtils.getRawHtml(url2);
-                 String html4 = respons6.toString();
-                 String respons9 = html4.replace("jsonpHqDataOtImUcey", "");
+                // String respons6 = HTTPUtils.getRawHtml(url2);
+                 String respons6=restTemplate.getForObject(url2,String.class);
+                // String html4 = respons6.toString();
+                 String respons9 = respons6.replace("jsonpHqDataOtImUcey", "");
                  response3 = respons9.replace("([", "").replace("])", "").replace("\"", "");
              }
              String[] response4 = response3.split(",");
