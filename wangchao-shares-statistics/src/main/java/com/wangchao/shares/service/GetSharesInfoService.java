@@ -260,4 +260,35 @@
          return sharesInfoRespPageInfos;
 
      }
+
+
+
+     public boolean Find(int target, int [][] array) {
+
+         int row_length=array.length;
+
+         int  column_length=array[0].length;
+
+         int row;
+
+         int column;
+
+         for(row=0,column=column_length-1;column>=0&&row<row_length;){
+             if(target==array[row][column]){
+                 return true;
+             }
+
+             if(target>array[row][column]){
+                 row++;
+                 continue;
+             }
+             if(target<array[row][column]){
+                 column--;
+                 continue;
+             }
+         }
+
+         return false;
+
+     }
  }

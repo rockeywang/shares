@@ -39,7 +39,7 @@
      @Autowired
      private GetSharesHolderService sharesHolderService;
 
-    // @Test
+     @Test
      public void testShareInfoTest() throws Exception {
 
          getSharesInfoService.getShareInfo();
@@ -70,7 +70,7 @@
      }
 
 
-    @Test
+  // @Test
      public void testGetSharesHolder() throws Exception{
          sharesHolderService.getSharesHolder();
      }
