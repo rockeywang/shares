@@ -22,6 +22,7 @@ public class Solution4 {
         for (int i = 2; i < 100; i++) {
             num[i] = num[i - 1] + num[i - 2];
         }
+
         return num[n];
     }
 }
