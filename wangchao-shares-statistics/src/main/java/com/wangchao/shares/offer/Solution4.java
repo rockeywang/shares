@@ -1,6 +1,8 @@
 package com.wangchao.shares.offer;
 
 
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * 大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。
  * n<=39
@@ -15,7 +17,6 @@ public class Solution4 {
      * @return
      */
     public int Fibonacci(int n) {
-
         int[] num = new int[100];
         num[0] = 0;
         num[1] = 1;
