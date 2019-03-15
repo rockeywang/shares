@@ -1,6 +1,7 @@
 package com.wangchao.shares.offer;
 
 
+import java.math.BigDecimal;
 
 /**
  * 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，
@@ -10,8 +11,11 @@ public class FindArray {
 
 
     public static void main(String[] args) {
-        int[][] arr = { {1,2,8,9}, {2,4,9,12},{4,7,10,13},{6,8,11,15}};
-        System.out.println(Find(6,arr));
+       // int[][] arr = { {1,2,8,9}, {2,4,9,12},{4,7,10,13},{6,8,11,15}};
+        //System.out.println(Find(6,arr));
+
+        final float i=1/2;
+        System.out.println(i);
     }
 
 
