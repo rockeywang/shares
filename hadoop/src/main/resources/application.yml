@@ -1,0 +1,13 @@
+hive:
+  url: jdbc:hive2://192.168.253.129:10000/default
+  driver-class-name: org.apache.hive.jdbc.HiveDriver
+  type: com.alibaba.druid.pool.DruidDataSource
+  username: root
+  password:
+
+
+server:
+  port: 9004
+spring:
+  application:
+    name: hadoop-exercise #指定服务名
