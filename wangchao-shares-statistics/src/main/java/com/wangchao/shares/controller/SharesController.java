@@ -15,6 +15,7 @@
  import com.wangchao.shares.vo.SharesInfoResp;
  import io.swagger.annotations.Api;
  import io.swagger.annotations.ApiOperation;
+ import lombok.extern.slf4j.Slf4j;
  import org.slf4j.Logger;
  import org.slf4j.LoggerFactory;
  import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,9 @@
  @RestController
  @RequestMapping(value = "/shares/")
  @Api(basePath = "/shares/", value = "shares-count", description = "pc端-股票数据统计", produces = "application/json")
+ @Slf4j
  public class SharesController {
 
-
-     private final Logger logger = LoggerFactory.getLogger(getClass());
 
      @Autowired
      private GetSharesInfoService getSharesInfoService;
@@ -47,13 +47,13 @@
          BaseResp<PageInfo<SharesInfoResp>> resp = null;
          String funName = "pc端->查询股票数据列表";
          try {
-             logger.info(" {},请求参数 : {}", funName, req);
+             log.info(" {},请求参数 : {}", funName, req);
              PageInfo<SharesInfoResp> pageList = getSharesInfoService.getSharesInfoList(req);
-             logger.info(funName + ",返回结果：" + JSON.toJSONString(pageList));
+             log.info(funName + ",返回结果：" + JSON.toJSONString(pageList));
              resp = BaseResp.buildSuccessResp(BaseResp.class);
              resp.setData(pageList);
          } catch (Exception t) {
-             logger.error("{},系统异常,:{}", funName, t);
+             log.error("{},系统异常,:{}", funName, t);
              resp = BaseResp.buildFailResp(t, funName, BaseResp.class);
          }
          return resp;
@@ -68,7 +68,7 @@
          try {
              getSharesInfoService.getShareInfo();
          } catch (Exception t) {
-             logger.error("{},系统异常,:{}", funName, t);
+             log.error("{},系统异常,:{}", funName, t);
              resp = BaseResp.buildFailResp(t, funName, BaseResp.class);
          }
          return resp;

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD SQL Map 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangchao.shares.dao.IWaybillSectionDao">
+
+	<select id="findWaybillSectionByBillCode" parameterType="java.lang.String" resultType="com.wangchao.shares.vo.WaybillSectionVo">
+		 SELECT *
+		  FROM UBS_WAYBILL_SECTION T
+		 WHERE T.START_NO <![CDATA[<=]]> #{billCode}
+		   AND T.END_NO <![CDATA[>=]]> #{billCode}
+		   AND LENGTH(T.START_NO) = LENGTH(#{billCode})
+	</select>
+	
+	
+	<resultMap type="com.wangchao.shares.vo.WaybillSectionVo"
+		id="WaybillSectionDtoResult">
+		<result column="ID" jdbcType="DECIMAL" property="id" />
+		<result column="BILL_CODE_TYPE" jdbcType="DECIMAL" property="billCodeType" />
+		<result column="BILL_CODE_LEN" jdbcType="DECIMAL" property="billCodeLen" />
+		<result column="START_NO" jdbcType="VARCHAR" property="startNo" />
+		<result column="END_NO" jdbcType="VARCHAR" property="endNo" />
+		<result column="QTY" jdbcType="DECIMAL" property="qty" />
+		<result column="PER_GENERATE_QTY" jdbcType="DECIMAL" property="perGenerateQty" />
+		<result column="GENERATE_START_NO" jdbcType="VARCHAR" property="generateStartNo" />
+		<result column="GENERATE_END_NO" jdbcType="VARCHAR" property="generateEndNo" />
+		<result column="GENERATE_QTY" jdbcType="DECIMAL" property="generateQty" />
+		<result column="GENERATE_SUM_QTY" jdbcType="DECIMAL" property="generateSumQty" />
+		<result column="FINISH_FLAG" jdbcType="BOOLEAN" property="finishFlag" />
+		<result column="STATUS" jdbcType="DECIMAL" property="status" />
+		<result column="VERSION" jdbcType="DECIMAL" property="version" />
+		<result column="CREATE_EMP" jdbcType="VARCHAR" property="createEmp" />
+		<result column="CREATE_ORG" jdbcType="DECIMAL" property="createOrg" />
+		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+	</resultMap>
+
+
+
+	<update id="updateGenerateInfo" parameterType="com.wangchao.shares.vo.WaybillSectionVo">
+		UPDATE ubs_waybill_section
+		<set>
+			<if test="generateStartNo!=null">GENERATE_START_NO = #{generateStartNo},</if>
+			<if test="generateEndNo!=null">GENERATE_END_NO = #{generateEndNo},</if>
+			<if test="generateQty!=null">GENERATE_QTY = #{generateQty},</if>
+			<if test="status!=null">STATUS = #{status},</if>
+		</set>
+		WHERE id=#{id}
+		and STATUS  <![CDATA[<>]]> 1003
+	</update>  
+
+	<update id="updateStatusById" parameterType="com.wangchao.shares.vo.WaybillSectionVo">
+		UPDATE ubs_waybill_section
+		<set>
+			<if test="generateSumQty!=null">GENERATE_SUM_QTY = #{generateSumQty},</if>
+			<if test="finishFlag!=null">FINISH_FLAG = #{finishFlag},</if>
+			<if test="status!=null">STATUS = #{status},</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+
+
+
+
+
+	<select id="findByCondition" parameterType="com.wangchao.shares.vo.WaybillSectionVo"
+		resultMap="WaybillSectionDtoResult">
+		SELECT * FROM ubs_waybill_section
+		<where>
+			<if test="billCodeType!=null and billCodeType == 1000"> BILL_CODE_TYPE in (1001,1002)</if>
+			<if test="billCodeType != 1000">AND BILL_CODE_TYPE = #{billCodeType}</if>
+			<if test="billCodeLen != null">AND BILL_CODE_LEN = #{billCodeLen}</if>
+			<if test="startNo != null"> AND START_NO = #{startNo}</if>
+			<if test="endNo != null"> AND END_NO = #{endNo}</if>
+			<if test="finishFlag != null">AND FINISH_FLAG = #{finishFlag}</if>
+			<if test="status != null"> AND STATUS = #{status}</if>
+		</where>
+	</select>
+
+	<select id="findByUnfinishSection" parameterType="java.lang.Integer"
+		resultMap="WaybillSectionDtoResult">
+		SELECT * FROM ubs_waybill_section t
+
+		<where>
+			t.FINISH_FLAG = 0 and t.STATUS != 1003
+			<if test="billCodeType!=null and billCodeType == 1000">AND BILL_CODE_TYPE in (1001,1002)</if>
+			<if test="billCodeType != 1000">AND BILL_CODE_TYPE = #{billCodeType}</if>
+		</where>
+	</select>
+</mapper>
