@@ -4,18 +4,23 @@ package com.wangchao.shares.util;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 
+@Service
 public class BoundListRedisSupport<T> {
 
     @SuppressWarnings("unchecked")
     private Class<T> tClass = ReflectionUtils.getSuperClassGenricType(this.getClass());
 
+
     protected RedisTemplate<Serializable, T> redisTemplate;
+
 
     protected BoundListOperations<Serializable, T> boundListOperations;
 

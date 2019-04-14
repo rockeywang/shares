@@ -5,7 +5,7 @@
   * use it only in accordance with the terms of the license agreement you entered
   * into with Tuhu.cn
   */
- package com.wangchao.shares.dao;
+ package com.wangchao.shares.mapper;
 
  import com.github.pagehelper.Page;
  import com.wangchao.shares.base.BaseMapper;

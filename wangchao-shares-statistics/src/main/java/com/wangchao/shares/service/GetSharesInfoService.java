@@ -10,7 +10,7 @@
  import com.github.pagehelper.Page;
  import com.github.pagehelper.PageHelper;
  import com.github.pagehelper.PageInfo;
- import com.wangchao.shares.dao.SharesInfoDoMapper;
+ import com.wangchao.shares.mapper.SharesInfoDoMapper;
  import com.wangchao.shares.dataobject.SharesInfoDo;
  import com.wangchao.shares.util.DateUtil;
  import com.wangchao.shares.util.HTTPUtils;

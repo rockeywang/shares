@@ -4,13 +4,11 @@ package com.wangchao.shares.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.wangchao.shares.config.RedisLock;
-import com.wangchao.shares.dao.IWaybillSectionDao;
+import com.wangchao.shares.mapper2.WaybillSectionDoMapper;
 import com.wangchao.shares.util.StatusConstants;
 import com.wangchao.shares.vo.WaybillBufferVo;
 import com.wangchao.shares.vo.WaybillSectionVo;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -28,11 +25,11 @@ public class BillCodeGenerateProcess extends Thread {
 
 
 
-    private int billCodeType = 0;
+    private int billCodeType = 1100;
 
     private boolean exitFlag = false;
 
-    private String redisKey;
+    private final static String redisKey="UBS_Master_lockKey";
 
     /** 缓存最低值 */
     private int cacheMinNum = 5000;
@@ -60,7 +57,7 @@ public class BillCodeGenerateProcess extends Thread {
     private WaybillCodeQueue waybillCodeQueue;
 
     @Autowired
-    private IWaybillSectionDao waybillSectionDao;
+    private WaybillSectionDoMapper waybillSectionDao;
 
 
 

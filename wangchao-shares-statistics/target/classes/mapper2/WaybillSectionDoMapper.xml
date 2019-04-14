@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD SQL Map 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wangchao.shares.dao.IWaybillSectionDao">
+<mapper namespace="com.wangchao.shares.mapper2.WaybillSectionDoMapper">
 
 	<select id="findWaybillSectionByBillCode" parameterType="java.lang.String" resultType="com.wangchao.shares.vo.WaybillSectionVo">
 		 SELECT *

@@ -2,9 +2,9 @@ package com.wangchao.shares.service;
 
 
 import com.alibaba.fastjson.JSON;
-import com.wangchao.shares.dao.SharesInfoDoMapper;
-import com.wangchao.shares.dao.SharesPriceConfigDoMapper;
-import com.wangchao.shares.dao.SharesPriceCountDoMapper;
+import com.wangchao.shares.mapper.SharesInfoDoMapper;
+import com.wangchao.shares.mapper.SharesPriceConfigDoMapper;
+import com.wangchao.shares.mapper.SharesPriceCountDoMapper;
 import com.wangchao.shares.dataobject.SharesPriceConfigDo;
 import com.wangchao.shares.dataobject.SharesPriceCountDo;
 import com.wangchao.shares.util.DateUtil;

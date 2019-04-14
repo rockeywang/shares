@@ -37,7 +37,7 @@ public class PublicDataSourceConfig {
         sessionFactory.setDataSource(dataSource);
         //如果不使用xml的方式配置mapper，则可以省去下面这行mapper location的配置。
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources("classpath*:ubs/*.xml"));
+                .getResources("classpath*:mapper2/*.xml"));
         return sessionFactory.getObject();
     }
 }
