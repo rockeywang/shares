@@ -1,12 +1,12 @@
 package com.wangchao.shares;
 
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -21,6 +21,14 @@ public class SharesAppServiceApplication {
 	public RestTemplate restTemplate(RestTemplateBuilder build) {
 		return build.build();
 	}
+
+
+	@Bean
+	public BCryptPasswordEncoder bcryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+
 
 
 
