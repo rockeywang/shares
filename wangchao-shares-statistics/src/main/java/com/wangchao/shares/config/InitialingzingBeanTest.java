@@ -17,6 +17,6 @@ public class InitialingzingBeanTest implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-        billCodeGenerateProcess.init();
+        //billCodeGenerateProcess.init();
     }
 }

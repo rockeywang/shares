@@ -16,4 +16,10 @@ public class HelloController {
     public String sayOK() {
         return "200";
     }
+
+
+    @GetMapping(value = "/login")
+    public String login() {
+        return "200";
+    }
 }
