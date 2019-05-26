@@ -16,7 +16,9 @@ public class DCLSingleDemo {
      * @return
      */
      public  static DCLSingleDemo getInstance(){
+         //先判断对象是否已经实例过，没有实例化过才能进入加锁代码
          if(instance==null){
+             //类对象加锁
             synchronized (DCLSingleDemo.class){
                 if(instance==null){
                     instance=new DCLSingleDemo();
